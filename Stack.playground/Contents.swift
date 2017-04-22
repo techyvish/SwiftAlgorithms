@@ -66,14 +66,61 @@ extension Stack : CustomStringConvertible, CustomDebugStringConvertible {
 stack.debugDescription
 stack.description
 
+
+//Type Inference of Array Literals
+
+
 extension Stack : ExpressibleByArrayLiteral {
     
     public init(arrayLiteral elements: T...) {
         self.init()
+        for item in elements {
+            self.push(element: item)
+        }
     }
     
 }
 
-let s = 
+let s = [10,20,30,50]
+let a = Stack(arrayLiteral: [10,20,30,40])
+
+
+public struct MyIterator<T> : IteratorProtocol {
+    
+    var currentElement: [T]
+    
+    
+    init(elements: [T]) {
+        self.currentElement = elements
+    }
+    
+    
+    public mutating func next() -> T? {
+    
+        if ( !self.currentElement.isEmpty ){
+            return self.currentElement.popLast()
+        }
+        return nil
+    }
+    
+}
+
+
+extension Stack : Sequence {
+    
+    public func makeIterator() -> MyIterator<T> {
+        return MyIterator<T>(elements: self.elements)
+    }
+    
+}
+
+
+for (i,a) in s.enumerated() {
+    print(a)
+}
+
+s.forEach { (k) in
+    print(k)
+}
 
 
