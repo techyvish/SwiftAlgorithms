@@ -1,4 +1,5 @@
 [] add tests
-[x] add more ideas
+[] add more ideas
 [] use pure swift
 [] examples from competitive programming books
+[] examples from leetcode
